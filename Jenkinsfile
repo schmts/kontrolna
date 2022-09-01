@@ -1,35 +1,33 @@
-
 pipeline {
+    
     agent any
 
     stages {
+        
         stage('Build') {
-            steps {
-                echo 'Gradimo.'
-				
+            
+            steps { 
+                echo 'Gradimo.'				
                 sh pip install -r requirements.txt
                 
             }
         }
         stage('Package') {
 		
-            steps {
-			
+            steps {			
                 echo 'Pakiramo.'
             }
         }
         stage('Push') {
 		
-            steps {
-			
+            steps {			
                 echo 'Potiskamo.'
             }
         }
       
         stage('Deploy') {
 		
-            steps {
-			
+            steps {			
                 echo '...in nazadnje razmescujemo...'
             }
         }
