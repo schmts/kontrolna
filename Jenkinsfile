@@ -3,13 +3,14 @@ pipeline {
     agent any
 
     stages {
-        
+        agent {
+                docker { image 'python:latest' }
         stage('Build') {
             
-            steps { 
-                echo 'Gradimo.'				
-                //pip install -r requirements.txt
-                
+            }
+            steps {
+                sh 'python -m py_compile app.py'
+                //stash(name: 'compiled-results', includes: '*.py*')        //////////UNSTASH ME LATER
             }
         }
         stage('Package') {
