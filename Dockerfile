@@ -8,6 +8,7 @@ ENV FLASK_ENV=development
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt requirements.txt
+RUN /opt/venv/bin/python3 -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 FROM python:3.8-slim-buster as runner
