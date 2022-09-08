@@ -6,7 +6,7 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development
 RUN python3 -m venv /opt/venv
-ENV PATH= "/opt/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH"
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
