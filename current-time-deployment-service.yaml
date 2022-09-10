@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: curr-time
-        image: schmts/current-time:1.1
+        image: schmts/current-time:latest
 ---
 apiVersion: v1
 kind: Service
