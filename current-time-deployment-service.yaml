@@ -16,6 +16,7 @@ spec:
       containers:
       - name: curr-time
         image: schmts/current-time:latest
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
