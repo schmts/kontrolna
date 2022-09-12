@@ -9,6 +9,6 @@ jobs:
     - name: trigger Job
       uses: appleboy/gitlab-ci-action@master
       with:
-        url: "https://gitlab.com/schmts/kontrolna"
+        url: "https://gitlab.com"
         token: "glptt-c11d43601d6ad5276e6f1964c2795006eaf4d30f"
         project_id: "39281895"
