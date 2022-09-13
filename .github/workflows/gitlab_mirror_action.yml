@@ -3,6 +3,10 @@ name: Mirror za gitlab
 on:
   - push
   - delete
+  - pull_request:
+    branches:
+      - prod
+    types: [closed]
 
 jobs:
   sync:
