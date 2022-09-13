@@ -6,4 +6,3 @@ cajt = "Trenuten datum in čas je: " + trenutencas
 @app.route('/')
 def trenuten_cas():
     return cajt
-
