@@ -3,6 +3,8 @@ name: Mirror za gitlab_merge
 on:
   pull_request:
     types: [opened, reopened]
+    branches: 
+    - prod
 
 jobs:
   sync:
