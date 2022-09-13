@@ -4,9 +4,9 @@ on:
   - push
   - delete
   - pull_request:
-    branches:
-      - prod
-    types: [closed]
+      branches:
+        - prod
+      types: [closed]
 
 jobs:
   sync:
