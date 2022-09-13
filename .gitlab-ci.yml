@@ -5,7 +5,8 @@ variables:
 stages:
   - build 
   - package&push
-  - deploy
+  - deploy_to_dev
+  - deploy_to_prod
 
 build_python:
   stage: build
@@ -26,12 +27,13 @@ docker_image_hub:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
     - docker push $IMAGE_NAME:$IMAGE_TAG
 
-
-
-
-deploy:
-  stage: deploy
+deploy_1:
+  stage: deploy_to_dev
   image: ruby:latest
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "dev"'
+      when: always
+      allow_failure: true
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - mkdir -p ~/.ssh
@@ -41,3 +43,18 @@ deploy:
     - ssh-add <(echo "$RUNNER_KEY" | tr -d '\r')
     - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service.yaml && kubectl rollout restart deployment/curr-time -n dev"
 
+deploy_2:
+  stage: deploy_to_prod
+  image: ruby:latest
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "prod"'
+      when: always
+      allow_failure: true
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh-add <(echo "$RUNNER_KEY" | tr -d '\r')
+    - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service-prod.yaml && kubectl rollout restart deployment/curr-time -n prod"
