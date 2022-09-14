@@ -1,8 +1,10 @@
-name: Mirror za gitlab
+name: Mirror za gitlab_merg
 
 on:
-  - push
-  - delete
+  pull_request:
+    types: [opened, reopened]
+    branches: 
+    - prod
 
 jobs:
   sync:
