@@ -40,7 +40,7 @@ deploy_1:
     - eval $(ssh-agent -s)
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - ssh-add <(echo "$RUNNER_KEY" | tr -d '\r')
+    - ssh-add <(echo "$RUNNER_PRIVATE_KEY" | tr -d '\r')
     - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service.yaml && kubectl rollout restart deployment/curr-time -n dev"
 
 deploy_2:
@@ -56,5 +56,5 @@ deploy_2:
     - eval $(ssh-agent -s)
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - ssh-add <(echo "$RUNNER_KEY" | tr -d '\r')
+    - ssh-add <(echo "$RUNNER_PRIVATE_KEY" | tr -d '\r')
     - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service-prod.yaml && kubectl rollout restart deployment/curr-time -n prod"

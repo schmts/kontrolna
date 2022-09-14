@@ -1,4 +1,4 @@
-name: Mirror za gitlab_merge
+name: Mirror za gitlab_merges
 
 on:
   pull_request:
