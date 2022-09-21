@@ -1,22 +1,20 @@
+FROM python:3.9-slim as compiler
+ENV PYTHONUNBUFFERED 1
 
-FROM python:3.8-slim-buster as compiler
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends build-essential gcc
-WORKDIR /usr/src/app
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_ENV=development
-RUN python3 -m venv /opt/venv
+WORKDIR /app/
+
+RUN python -m venv /opt/venv
+# Enable venv
 ENV PATH="/opt/venv/bin:$PATH"
-COPY requirements.txt requirements.txt
-RUN /opt/venv/bin/python3 -m pip install --upgrade pip
-RUN pip install -r requirements.txt
 
-FROM python:3.8-slim-buster as runner
-WORKDIR /usr/src/app
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install -Ur requirements.txt
+
+FROM python:3.9-slim as runner
+WORKDIR /app/
 COPY --from=compiler /opt/venv /opt/venv
 
+# Enable venv
 ENV PATH="/opt/venv/bin:$PATH"
-COPY . /usr/src/app
-EXPOSE 5000
-CMD [ "flask", "run" ]
+COPY . /app/
+CMD ["python", "app.py"]
