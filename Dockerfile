@@ -18,4 +18,5 @@ COPY --from=compiler /opt/venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
 COPY . /usr/src/app
+EXPOSE 5000
 CMD [ "flask", "run" ]
