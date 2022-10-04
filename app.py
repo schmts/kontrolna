@@ -5,7 +5,7 @@ import time
 app = Flask(__name__)
 api = Api(app)
 trenutencas = time.asctime()
-cajt = "Današnji datum in trenuten čas: " + trenutencas
+cajt = "Danasnji datum in trenuten cas: " + trenutencas
 
 
 class HelloWorld(Resource):
