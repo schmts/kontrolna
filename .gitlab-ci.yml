@@ -41,7 +41,7 @@ deploy_1:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh-add <(echo "$RUNNER_PRIVATE_KEY" | tr -d '\r')
-    - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service.yaml && kubectl rollout restart deployment/curr-time -n dev"
+    - ssh generic@192.168.0.103 "kubectl apply -f ~/kontrolna/current-time-deployment-service.yaml && kubectl rollout restart deployment/curr-time -n dev"
 
 deploy_2:
   stage: deploy_to_prod
@@ -57,4 +57,4 @@ deploy_2:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh-add <(echo "$RUNNER_PRIVATE_KEY" | tr -d '\r')
-    - ssh generic@192.168.0.103 "kubectl apply -f current-time-deployment-service-prod.yaml && kubectl rollout restart deployment/curr-time -n prod"
+    - ssh generic@192.168.0.103 "kubectl apply -f ~/kontrolna/current-time-deployment-service-prod.yaml && kubectl rollout restart deployment/curr-time -n prod"
